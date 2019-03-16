@@ -14,6 +14,7 @@
 		DD0A042A223D45FD00166137 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD0A0428223D45FD00166137 /* LaunchScreen.storyboard */; };
 		DD0A0435223D45FD00166137 /* AppStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A0434223D45FD00166137 /* AppStoreTests.swift */; };
 		DD0A0440223D45FD00166137 /* AppStoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A043F223D45FD00166137 /* AppStoreUITests.swift */; };
+		DD0A044E223D469A00166137 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A044D223D469A00166137 /* BaseTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		DD0A043B223D45FD00166137 /* AppStoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppStoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD0A043F223D45FD00166137 /* AppStoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreUITests.swift; sourceTree = "<group>"; };
 		DD0A0441223D45FD00166137 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD0A044D223D469A00166137 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				DD0A0426223D45FD00166137 /* Assets.xcassets */,
 				DD0A0428223D45FD00166137 /* LaunchScreen.storyboard */,
 				DD0A042B223D45FD00166137 /* Info.plist */,
+				DD0A044D223D469A00166137 /* BaseTabBarController.swift */,
 			);
 			path = AppStore;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			files = (
 				DD0A0422223D45F700166137 /* ViewController.swift in Sources */,
 				DD0A0420223D45F700166137 /* AppDelegate.swift in Sources */,
+				DD0A044E223D469A00166137 /* BaseTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
