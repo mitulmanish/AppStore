@@ -11,24 +11,35 @@ import UIKit
 class BaseTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        let todayNavigationController = createNavController(
+            backgroundColor: .white,
+            title: "Today",
+            tabBarImageName: "today_icon"
+        )
+        let appsNavigationController = createNavController(
+            backgroundColor: .white,
+            title: "Apps",
+            tabBarImageName: "apps"
+        )
+        let searchViewController = createNavController(
+            viewController:  AppsSearchCollectionViewController(),
+            backgroundColor: .white,
+            title: "Search",
+            tabBarImageName: "search"
+        )
+        viewControllers = [searchViewController, todayNavigationController, appsNavigationController]
+    }
+}
+
+extension BaseTabBarController {
+    private func createNavController(viewController: UIViewController = UIViewController(), backgroundColor: UIColor, title: String, tabBarImageName: String) -> UINavigationController {
+        viewController.view.backgroundColor = backgroundColor
+        viewController.navigationItem.title = title
         
-        let r = UIViewController()
-        r.view.backgroundColor = .white
-        r.navigationItem.title = "Apps"
-        let rNavBarController = UINavigationController(rootViewController: r)
-        rNavBarController.tabBarItem.title = "Apps"
-        rNavBarController.navigationBar.prefersLargeTitles = true
-        rNavBarController.tabBarItem.image = UIImage(named: "apps")
-        
-        let g = UIViewController()
-        g.view.backgroundColor = .white
-        g.navigationItem.title = "Search"
-        let gNavBarController = UINavigationController(rootViewController: g)
-        gNavBarController.tabBarItem.title = "Search"
-        gNavBarController.navigationItem.title = "Search"
-        gNavBarController.navigationBar.prefersLargeTitles = true
-        gNavBarController.tabBarItem.image = UIImage(named: "search")
-        
-        viewControllers = [rNavBarController, gNavBarController]
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.tabBarItem.title = title
+        navigationController.tabBarItem.image = UIImage(named: tabBarImageName)
+        navigationController.navigationBar.prefersLargeTitles = true
+        return navigationController
     }
 }
