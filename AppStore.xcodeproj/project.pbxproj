@@ -17,6 +17,7 @@
 		DD0A044E223D469A00166137 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A044D223D469A00166137 /* BaseTabBarController.swift */; };
 		DD3743EC22420B0F00D88B5C /* AppsSearchCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3743EB22420B0F00D88B5C /* AppsSearchCollectionViewController.swift */; };
 		DDB611B8224A403900D962AA /* SearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611B7224A403900D962AA /* SearchResultsCell.swift */; };
+		DDB611BB224BD86C00D962AA /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611BA224BD86C00D962AA /* UIView+Anchors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		DD0A044D223D469A00166137 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		DD3743EB22420B0F00D88B5C /* AppsSearchCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsSearchCollectionViewController.swift; sourceTree = "<group>"; };
 		DDB611B7224A403900D962AA /* SearchResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCell.swift; sourceTree = "<group>"; };
+		DDB611BA224BD86C00D962AA /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		DD0A041E223D45F700166137 /* AppStore */ = {
 			isa = PBXGroup;
 			children = (
+				DDB611B9224BD80C00D962AA /* Extensions */,
 				DD0A041F223D45F700166137 /* AppDelegate.swift */,
 				DD0A0421223D45F700166137 /* ViewController.swift */,
 				DD0A0423223D45F700166137 /* Main.storyboard */,
@@ -132,6 +135,14 @@
 				DD0A0441223D45FD00166137 /* Info.plist */,
 			);
 			path = AppStoreUITests;
+			sourceTree = "<group>";
+		};
+		DDB611B9224BD80C00D962AA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DDB611BA224BD86C00D962AA /* UIView+Anchors.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD3743EC22420B0F00D88B5C /* AppsSearchCollectionViewController.swift in Sources */,
+				DDB611BB224BD86C00D962AA /* UIView+Anchors.swift in Sources */,
 				DDB611B8224A403900D962AA /* SearchResultsCell.swift in Sources */,
 				DD0A0422223D45F700166137 /* ViewController.swift in Sources */,
 				DD0A0420223D45F700166137 /* AppDelegate.swift in Sources */,
