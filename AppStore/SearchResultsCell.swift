@@ -11,7 +11,7 @@ import UIKit
 class SearchResultsCell: UICollectionViewCell {
     static let reuseIdentifier = "SearchResultsCellID"
     
-    lazy var appIconImageView: UIImageView = {
+    private lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .red
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
@@ -20,25 +20,25 @@ class SearchResultsCell: UICollectionViewCell {
         return imageView
     }()
     
-    lazy var nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "App Name"
         return label
     }()
     
-    lazy var categoryLabel: UILabel = {
+    private lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Photos & Videos"
         return label
     }()
     
-    lazy var ratingsLabel: UILabel = {
+    private lazy var ratingsLabel: UILabel = {
         let label = UILabel()
         label.text = "1.6M"
         return label
     }()
     
-    let getButton: UIButton = {
+    private lazy var getButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("GET", for: .normal)
         button.setTitleColor(.blue, for: .normal)
@@ -50,15 +50,15 @@ class SearchResultsCell: UICollectionViewCell {
         return button
     }()
     
-    lazy var screenShotImageViewFirst: UIImageView = {
+    private lazy var screenShotImageViewFirst: UIImageView = {
         return createScreenshotImageView()
     }()
     
-    lazy var screenShotImageViewSecond: UIImageView = {
+    private lazy var screenShotImageViewSecond: UIImageView = {
         return createScreenshotImageView()
     }()
     
-    lazy var screenShotImageViewThird: UIImageView = {
+    private lazy var screenShotImageViewThird: UIImageView = {
         return createScreenshotImageView()
     }()
     
@@ -80,9 +80,7 @@ class SearchResultsCell: UICollectionViewCell {
     }
     
     private func setupSubViews() {
-        let labelStackView = UIStackView(arrangedSubviews: [nameLabel, categoryLabel, ratingsLabel])
-        labelStackView.axis = .vertical
-        
+        let labelStackView = VerticalStackView(subViews: [nameLabel, categoryLabel, ratingsLabel])
         let topInfoStackView = UIStackView(arrangedSubviews: [appIconImageView, labelStackView, getButton])
         topInfoStackView.spacing = 12
         topInfoStackView.alignment = .center
@@ -91,9 +89,7 @@ class SearchResultsCell: UICollectionViewCell {
         screenShotsImageStackView.spacing = 8
         screenShotsImageStackView.distribution = .fillEqually
         
-        let overallStackView = UIStackView(arrangedSubviews: [topInfoStackView, screenShotsImageStackView])
-        overallStackView.axis = .vertical
-        overallStackView.spacing = 8
+        let overallStackView = VerticalStackView(subViews: [topInfoStackView, screenShotsImageStackView], spacing: 8)
         addSubview(overallStackView)
         overallStackView.fillSuperView(with:
             .init(
