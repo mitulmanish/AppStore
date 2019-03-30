@@ -11,28 +11,30 @@ import UIKit
 class SearchResultsCell: UICollectionViewCell {
     static let reuseIdentifier = "SearchResultsCellID"
     
-    private lazy var appIconImageView: UIImageView = {
+    lazy var appIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .lightGray
         imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 64).isActive = true
         imageView.layer.cornerRadius = 12
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    private lazy var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "App Name"
         return label
     }()
     
-    private lazy var categoryLabel: UILabel = {
+    lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Photos & Videos"
         return label
     }()
     
-    private lazy var ratingsLabel: UILabel = {
+    lazy var ratingsLabel: UILabel = {
         let label = UILabel()
         label.text = "1.6M"
         return label
@@ -41,7 +43,6 @@ class SearchResultsCell: UICollectionViewCell {
     private lazy var getButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("GET", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 14)
         button.widthAnchor.constraint(equalToConstant: 80).isActive = true
         button.heightAnchor.constraint(equalToConstant: 32).isActive = true
@@ -62,10 +63,18 @@ class SearchResultsCell: UICollectionViewCell {
         return createScreenshotImageView()
     }()
     
+    lazy var screenShotImageViews: [UIImageView] = {
+        return [screenShotImageViewFirst, screenShotImageViewSecond, screenShotImageViewThird]
+    }()
+    
     private func createScreenshotImageView() -> UIImageView {
         let imageView = UIImageView()
-        imageView.backgroundColor = .orange
+        imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
         return imageView
     }
     
