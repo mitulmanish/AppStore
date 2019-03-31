@@ -11,6 +11,7 @@ import SDWebImage
 
 class AppsSearchCollectionViewController: UICollectionViewController {
     private let cellID = "searchResultCellID"
+    private let searchController = UISearchController(searchResultsController: .none)
     private var searchResultItemList = [SearchResultItem]()
     
     init() {
@@ -21,31 +22,53 @@ class AppsSearchCollectionViewController: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    lazy var emptySearchLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.text = "Please enter search term above 👆🏼"
+        label.translatesAutoresizingMaskIntoConstraints = true
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
+        collectionView.addSubview(emptySearchLabel)
+        emptySearchLabel.fillSuperView(with: .init(top: 88, left: 48, bottom: 0, right: 48))
+        
         collectionView.register(
             SearchResultsCell.self,
             forCellWithReuseIdentifier: SearchResultsCell.reuseIdentifier
         )
-        
-        fetchAppsData()
+        setupSearchBar()
     }
     
-    private func fetchAppsData() {
-        let urlString = "https://itunes.apple.com/search?term=instagram&entity=software"
-        guard let url = URL(string: urlString) else {
-            return
+    private func setupSearchBar() {
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.delegate = self
+    }
+    
+    private var timer: Timer?
+    
+    private func fetchAppsData(with searchTerm: String) {
+        timer?.invalidate()
+        timer = Timer(timeInterval: 0.3, repeats: false) { _ in
+            Service.shared.fetchApps(searchTerm: searchTerm, completion: {
+                [weak self] appsList, error in
+                guard let apps = appsList, apps.isEmpty == false else {
+                    return
+                }
+                self?.searchResultItemList = apps
+                OperationQueue.main.addOperation {
+                    self?.emptySearchLabel.isHidden = (apps.isEmpty == false)
+                    self?.collectionView.reloadData()
+                }
+            })
         }
-        Service.shared.fetchApps(url: url, completion: { [weak self] appsList, error in
-            guard let apps = appsList, apps.isEmpty == false else {
-                return
-            }
-            self?.searchResultItemList = apps
-            OperationQueue.main.addOperation {
-                self?.collectionView.reloadData()
-            }
-        })
+        timer?.fire()
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -84,5 +107,18 @@ extension AppsSearchCollectionViewController {
 extension AppsSearchCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 350)
+    }
+}
+
+
+extension AppsSearchCollectionViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard searchText.isEmpty == false else {
+            searchResultItemList = []
+            emptySearchLabel.isHidden = false
+            collectionView.reloadData()
+            return
+        }
+        fetchAppsData(with: searchText)
     }
 }

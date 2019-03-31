@@ -10,12 +10,22 @@ import Foundation
 enum ServiceError: Error {
     case noData
     case inValidResponse
+    case invalidURL
+    case invalidSearchTerm
 }
 
 class Service {
     static let shared = Service()
     
-    func fetchApps(url: URL, completion: @escaping ([SearchResultItem]?, Error?) -> ()) {
+    func fetchApps(searchTerm: String, completion: @escaping ([SearchResultItem]?, Error?) -> ()) {
+        guard let finalSearchTerm = searchTerm.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+            return completion(.none, ServiceError.invalidSearchTerm)
+        }
+        let urlString = "https://itunes.apple.com/search?term=\(finalSearchTerm)&entity=software"
+        guard let url = URL(string: urlString) else {
+            completion(.none, ServiceError.invalidURL)
+            return
+        }
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let err = error {
                 completion(.none, err)
