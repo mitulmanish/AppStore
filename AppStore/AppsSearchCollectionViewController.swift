@@ -9,18 +9,10 @@
 import UIKit
 import SDWebImage
 
-class AppsSearchCollectionViewController: UICollectionViewController {
+class AppsSearchCollectionViewController: BaseCollectionViewController {
     private let cellID = "searchResultCellID"
     private let searchController = UISearchController(searchResultsController: .none)
     private var searchResultItemList = [SearchResultItem]()
-    
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     lazy var emptySearchLabel: UILabel = {
         let label = UILabel()

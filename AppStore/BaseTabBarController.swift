@@ -17,6 +17,7 @@ class BaseTabBarController: UITabBarController {
             tabBarImageName: "today_icon"
         )
         let appsNavigationController = createNavController(
+            viewController: AppsCollectionViewController(),
             backgroundColor: .white,
             title: "Apps",
             tabBarImageName: "apps"
@@ -27,7 +28,7 @@ class BaseTabBarController: UITabBarController {
             title: "Search",
             tabBarImageName: "search"
         )
-        viewControllers = [searchViewController, todayNavigationController, appsNavigationController]
+        viewControllers = [appsNavigationController, searchViewController, todayNavigationController]
     }
 }
 

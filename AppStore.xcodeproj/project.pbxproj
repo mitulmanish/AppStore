@@ -19,6 +19,12 @@
 		DD0A044E223D469A00166137 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0A044D223D469A00166137 /* BaseTabBarController.swift */; };
 		DD3743EC22420B0F00D88B5C /* AppsSearchCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3743EB22420B0F00D88B5C /* AppsSearchCollectionViewController.swift */; };
 		DD548A39224FF64B00289AEA /* Array+SafeAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD548A38224FF64B00289AEA /* Array+SafeAccess.swift */; };
+		DD6656E32252154400073DC3 /* AppsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6656E22252154400073DC3 /* AppsCollectionViewController.swift */; };
+		DD6656E52252166200073DC3 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6656E42252166200073DC3 /* BaseCollectionViewController.swift */; };
+		DD6656E7225218DC00073DC3 /* AppsGroupCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6656E6225218DC00073DC3 /* AppsGroupCollectionViewCell.swift */; };
+		DD6656EA22521E5000073DC3 /* AppsHorizontalCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6656E922521E5000073DC3 /* AppsHorizontalCollectionViewController.swift */; };
+		DD6656EC22534F6000073DC3 /* AppsHorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6656EB22534F6000073DC3 /* AppsHorizontalCollectionViewCell.swift */; };
+		DD6656EE225351C200073DC3 /* ViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6656ED225351C200073DC3 /* ViewComponents.swift */; };
 		DDB611B8224A403900D962AA /* SearchResultsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611B7224A403900D962AA /* SearchResultsCell.swift */; };
 		DDB611BB224BD86C00D962AA /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611BA224BD86C00D962AA /* UIView+Anchors.swift */; };
 		DDB611BE224C906E00D962AA /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611BD224C906E00D962AA /* VerticalStackView.swift */; };
@@ -68,6 +74,12 @@
 		DD0A044D223D469A00166137 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		DD3743EB22420B0F00D88B5C /* AppsSearchCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsSearchCollectionViewController.swift; sourceTree = "<group>"; };
 		DD548A38224FF64B00289AEA /* Array+SafeAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeAccess.swift"; sourceTree = "<group>"; };
+		DD6656E22252154400073DC3 /* AppsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsCollectionViewController.swift; sourceTree = "<group>"; };
+		DD6656E42252166200073DC3 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		DD6656E6225218DC00073DC3 /* AppsGroupCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsGroupCollectionViewCell.swift; sourceTree = "<group>"; };
+		DD6656E922521E5000073DC3 /* AppsHorizontalCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHorizontalCollectionViewController.swift; sourceTree = "<group>"; };
+		DD6656EB22534F6000073DC3 /* AppsHorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
+		DD6656ED225351C200073DC3 /* ViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewComponents.swift; sourceTree = "<group>"; };
 		DDB611B7224A403900D962AA /* SearchResultsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsCell.swift; sourceTree = "<group>"; };
 		DDB611BA224BD86C00D962AA /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
 		DDB611BD224C906E00D962AA /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
@@ -166,6 +178,7 @@
 				DD0A044D223D469A00166137 /* BaseTabBarController.swift */,
 				DD3743EB22420B0F00D88B5C /* AppsSearchCollectionViewController.swift */,
 				DDB611B7224A403900D962AA /* SearchResultsCell.swift */,
+				DD6656E8225219F100073DC3 /* AppsTab */,
 			);
 			path = AppStore;
 			sourceTree = "<group>";
@@ -188,11 +201,24 @@
 			path = AppStoreUITests;
 			sourceTree = "<group>";
 		};
+		DD6656E8225219F100073DC3 /* AppsTab */ = {
+			isa = PBXGroup;
+			children = (
+				DD6656E22252154400073DC3 /* AppsCollectionViewController.swift */,
+				DD6656E42252166200073DC3 /* BaseCollectionViewController.swift */,
+				DD6656E6225218DC00073DC3 /* AppsGroupCollectionViewCell.swift */,
+				DD6656E922521E5000073DC3 /* AppsHorizontalCollectionViewController.swift */,
+				DD6656EB22534F6000073DC3 /* AppsHorizontalCollectionViewCell.swift */,
+			);
+			path = AppsTab;
+			sourceTree = "<group>";
+		};
 		DDB611B9224BD80C00D962AA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				DDB611BA224BD86C00D962AA /* UIView+Anchors.swift */,
 				DD548A38224FF64B00289AEA /* Array+SafeAccess.swift */,
+				DD6656ED225351C200073DC3 /* ViewComponents.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -447,13 +473,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD6656EE225351C200073DC3 /* ViewComponents.swift in Sources */,
+				DD6656EC22534F6000073DC3 /* AppsHorizontalCollectionViewCell.swift in Sources */,
+				DD6656E32252154400073DC3 /* AppsCollectionViewController.swift in Sources */,
 				DD3743EC22420B0F00D88B5C /* AppsSearchCollectionViewController.swift in Sources */,
 				DDB611BB224BD86C00D962AA /* UIView+Anchors.swift in Sources */,
+				DD6656E7225218DC00073DC3 /* AppsGroupCollectionViewCell.swift in Sources */,
+				DD6656E52252166200073DC3 /* BaseCollectionViewController.swift in Sources */,
 				DDB611C1224F5AB600D962AA /* SearchResult.swift in Sources */,
 				DDB611B8224A403900D962AA /* SearchResultsCell.swift in Sources */,
 				DD0A0422223D45F700166137 /* ViewController.swift in Sources */,
 				DDB611C4224F6A3D00D962AA /* Service.swift in Sources */,
 				DD0A0420223D45F700166137 /* AppDelegate.swift in Sources */,
+				DD6656EA22521E5000073DC3 /* AppsHorizontalCollectionViewController.swift in Sources */,
 				DD0A044E223D469A00166137 /* BaseTabBarController.swift in Sources */,
 				DD548A39224FF64B00289AEA /* Array+SafeAccess.swift in Sources */,
 				DDB611BE224C906E00D962AA /* VerticalStackView.swift in Sources */,
