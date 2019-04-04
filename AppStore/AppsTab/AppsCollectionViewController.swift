@@ -15,6 +15,10 @@ class AppsCollectionViewController: BaseCollectionViewController {
         collectionView.backgroundColor = .white
         collectionView.register(AppsHeaderCollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellIdentifier)
         collectionView.register(AppsGroupCollectionViewCell.self, forCellWithReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier)
+        
+        Service.shared.fetchGames { (appGroup: AppGroup?, error) in
+            
+        }
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

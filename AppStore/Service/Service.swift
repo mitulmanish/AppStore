@@ -49,4 +49,36 @@ class Service {
             }
         }.resume()
     }
+    
+    func fetchGames<T: Decodable>(completion: @escaping (T?, Error?) -> ()) {
+        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json"
+        guard let url = URL(string: urlString) else {
+            completion(.none, ServiceError.invalidURL)
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let err = error {
+                completion(.none, err)
+            }
+            
+            let validStatusCodeRange: ClosedRange<Int> = 200...299
+            guard let httpResponse = response as? HTTPURLResponse, validStatusCodeRange.contains(httpResponse.statusCode) else {
+                completion(.none, ServiceError.inValidResponse)
+                return
+            }
+            
+            guard let data = data else {
+                completion(.none, ServiceError.noData)
+                return
+            }
+            let stringData = String(data: data, encoding: .utf8)
+            print(">>> \(stringData)")
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                completion(result, .none)
+            } catch {
+                completion(.none, error)
+            }
+            }.resume()
+    }
 }

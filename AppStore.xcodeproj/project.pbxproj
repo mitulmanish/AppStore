@@ -33,6 +33,7 @@
 		DDB611BE224C906E00D962AA /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611BD224C906E00D962AA /* VerticalStackView.swift */; };
 		DDB611C1224F5AB600D962AA /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611C0224F5AB600D962AA /* SearchResult.swift */; };
 		DDB611C4224F6A3D00D962AA /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB611C3224F6A3D00D962AA /* Service.swift */; };
+		DDC7A5F722566B060069FCF3 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7A5F622566B060069FCF3 /* AppGroup.swift */; };
 		F2907E770738C9EC7A441281 /* Pods_AppStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E12DC430A8D5A852F03EA1A0 /* Pods_AppStore.framework */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,7 @@
 		DDB611BD224C906E00D962AA /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		DDB611C0224F5AB600D962AA /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		DDB611C3224F6A3D00D962AA /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		DDC7A5F622566B060069FCF3 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		E12DC430A8D5A852F03EA1A0 /* Pods_AppStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B370524CF79D17088583E2 /* Pods-AppStoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreTests.release.xcconfig"; path = "Target Support Files/Pods-AppStoreTests/Pods-AppStoreTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -244,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				DDB611C0224F5AB600D962AA /* SearchResult.swift */,
+				DDC7A5F622566B060069FCF3 /* AppGroup.swift */,
 			);
 			path = "Data-Model";
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				DD0A0422223D45F700166137 /* ViewController.swift in Sources */,
 				DDB611C4224F6A3D00D962AA /* Service.swift in Sources */,
 				DD0A0420223D45F700166137 /* AppDelegate.swift in Sources */,
+				DDC7A5F722566B060069FCF3 /* AppGroup.swift in Sources */,
 				DD6656EA22521E5000073DC3 /* AppsHorizontalCollectionViewController.swift in Sources */,
 				DD0A044E223D469A00166137 /* BaseTabBarController.swift in Sources */,
 				DD548A39224FF64B00289AEA /* Array+SafeAccess.swift in Sources */,
