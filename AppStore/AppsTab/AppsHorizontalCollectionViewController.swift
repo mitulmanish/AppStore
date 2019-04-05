@@ -12,20 +12,34 @@ class AppsHorizontalCollectionViewController: BaseCollectionViewController {
     private let interItemSpacing: CGFloat = 10
     private let topBottomSectionMargin: CGFloat = 8
     
+    var appGroup: AppGroup? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.scrollDirection = .horizontal
-        collectionView.register(AppsHorizontalCollectionViewCell.self, forCellWithReuseIdentifier: "cellID")
+        collectionView.register(AppsHorizontalCollectionViewCell.self, forCellWithReuseIdentifier: AppsHorizontalCollectionViewCell.appsHorizontalCollectionViewCellIdentifier)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return appGroup?.feed.results.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsHorizontalCollectionViewCell.appsHorizontalCollectionViewCellIdentifier, for: indexPath) as? AppsHorizontalCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let appItem = try? appGroup?.feed.results.getElementAt(index: indexPath.item) else {
+            return cell
+        }
+        cell.appNameLabel.text = appItem?.name
+        cell.companyNameLabel.text = appItem?.artistName
+        cell.appIconImageView.sd_setImage(with: URL(string: appItem?.artworkUrl100 ?? ""))
         return cell
     }
 }

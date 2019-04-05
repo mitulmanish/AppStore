@@ -10,6 +10,7 @@ import UIKit
 
 class AppsHorizontalCollectionViewCell: UICollectionViewCell {
     
+    static let appsHorizontalCollectionViewCellIdentifier = "appsHorizontalCollectionViewCellID"
     lazy var appIconImageView: UIImageView =  { [unowned self] in
         let imageView = UIImageView(cornerRadius: 8)
         imageView.widthAnchor.constraint(

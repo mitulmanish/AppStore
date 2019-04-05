@@ -10,27 +10,35 @@ import UIKit
 
 class AppsCollectionViewController: BaseCollectionViewController {
     private let headerCellIdentifier = "headerCell"
+    private var appGroup: AppGroup?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(AppsHeaderCollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerCellIdentifier)
         collectionView.register(AppsGroupCollectionViewCell.self, forCellWithReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier)
-        
-        Service.shared.fetchGames { (appGroup: AppGroup?, error) in
-            
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Service.shared.fetchGames { [weak self] (appGroup: AppGroup?, error) in
+            self?.appGroup = appGroup
+            OperationQueue.main.addOperation {
+                self?.collectionView.reloadData()
+            }
         }
     }
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
-    }
-    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath) as? AppsGroupCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.titleLabel.text = appGroup?.feed.title
+        cell.horizontalController.appGroup = appGroup
         return cell
     }
     
