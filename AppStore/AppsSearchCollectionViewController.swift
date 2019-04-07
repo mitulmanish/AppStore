@@ -13,6 +13,7 @@ class AppsSearchCollectionViewController: BaseCollectionViewController {
     private let cellID = "searchResultCellID"
     private let searchController = UISearchController(searchResultsController: .none)
     private var searchResultItemList = [SearchResultItem]()
+    private var timer: Timer?
     
     lazy var emptySearchLabel: UILabel = {
         let label = UILabel()
@@ -42,8 +43,6 @@ class AppsSearchCollectionViewController: BaseCollectionViewController {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
     }
-    
-    private var timer: Timer?
     
     private func fetchAppsData(with searchTerm: String) {
         timer?.invalidate()

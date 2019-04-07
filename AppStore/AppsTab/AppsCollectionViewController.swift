@@ -12,6 +12,12 @@ class AppsCollectionViewController: BaseCollectionViewController {
     private let headerCellIdentifier = "headerCell"
     private var appGroup: AppGroup?
     
+    private var appGroups = [AppGroup?]() {
+        didSet {
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
@@ -21,23 +27,42 @@ class AppsCollectionViewController: BaseCollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Service.shared.fetchGames { [weak self] (appGroup: AppGroup?, error) in
-            self?.appGroup = appGroup
-            OperationQueue.main.addOperation {
+        
+        var newGamesGroup: AppGroup?
+        var newAppsGroup: AppGroup?
+        
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        let gamesURLString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json"
+        Service.shared.fetchGames(urlString: gamesURLString) { (appGroup: AppGroup?, error) in
+            dispatchGroup.leave()
+            newGamesGroup = appGroup
+        }
+        
+        dispatchGroup.enter()
+        let newAppsURLString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-apps-we-love/all/50/explicit.json"
+        Service.shared.fetchGames(urlString: newAppsURLString) { (appGroup: AppGroup?, error) in
+            dispatchGroup.leave()
+            newAppsGroup = appGroup
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            OperationQueue.main.addOperation { [weak self] in
+                self?.appGroups = [newGamesGroup, newAppsGroup].compactMap({ $0 })
                 self?.collectionView.reloadData()
             }
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return appGroups.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath) as? AppsGroupCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath) as? AppsGroupCollectionViewCell, let appGroup = appGroups[indexPath.item] else {
             return UICollectionViewCell()
         }
-        cell.titleLabel.text = appGroup?.feed.title
+        cell.titleLabel.text = appGroup.feed.title
         cell.horizontalController.appGroup = appGroup
         return cell
     }
@@ -50,7 +75,7 @@ class AppsCollectionViewController: BaseCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: collectionView.bounds.width, height: 300)
+        return .init(width: collectionView.bounds.width, height: 0)
     }
 }
 

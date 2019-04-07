@@ -50,8 +50,7 @@ class Service {
         }.resume()
     }
     
-    func fetchGames<T: Decodable>(completion: @escaping (T?, Error?) -> ()) {
-        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json"
+    func fetchGames<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()) {
         guard let url = URL(string: urlString) else {
             completion(.none, ServiceError.invalidURL)
             return
@@ -71,8 +70,6 @@ class Service {
                 completion(.none, ServiceError.noData)
                 return
             }
-            let stringData = String(data: data, encoding: .utf8)
-            print(">>> \(stringData)")
             do {
                 let result = try JSONDecoder().decode(T.self, from: data)
                 completion(result, .none)
