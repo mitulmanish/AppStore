@@ -36,7 +36,7 @@ extension URLSession {
             dataResponse(
                 self.getResult(data: data, response: response, error: error)
             )
-        }
+        }.resume()
     }
     
     func getData(url: URL, dataResponse: @escaping (URLSessionNetworkResult) -> ()) {
@@ -44,6 +44,6 @@ extension URLSession {
             dataResponse(
                 self.getResult(data: data, response: response, error: error)
             )
-        }
+        }.resume()
     }
 }

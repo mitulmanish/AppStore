@@ -50,32 +50,27 @@ class Service {
         }.resume()
     }
     
-    func fetchGames<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()) {
+    func fetch<DataType: Decodable>(urlString: String, completion: @escaping (Result<DataType, Error>) -> ()) {
         guard let url = URL(string: urlString) else {
-            completion(.none, ServiceError.invalidURL)
+            //completion(.none, ServiceError.invalidURL)
+            completion(.failure(ServiceError.invalidURL))
             return
         }
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let err = error {
-                completion(.none, err)
+        URLSession.shared.getData(url: url) { networkResult in
+            switch networkResult {
+            case let .success(data):
+                do {
+                    let result = try JSONDecoder().decode(DataType.self, from: data)
+//                    completion(result, .none)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+//                    completion(.none, error)
+                }
+            case let .failure(error):
+//                completion(.none, error)
+                completion(.failure(error))
             }
-            
-            let validStatusCodeRange: ClosedRange<Int> = 200...299
-            guard let httpResponse = response as? HTTPURLResponse, validStatusCodeRange.contains(httpResponse.statusCode) else {
-                completion(.none, ServiceError.inValidResponse)
-                return
-            }
-            
-            guard let data = data else {
-                completion(.none, ServiceError.noData)
-                return
-            }
-            do {
-                let result = try JSONDecoder().decode(T.self, from: data)
-                completion(result, .none)
-            } catch {
-                completion(.none, error)
-            }
-            }.resume()
+        }
     }
 }
