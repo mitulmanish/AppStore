@@ -8,39 +8,11 @@
 
 import UIKit
 
-enum AppGroupSection: CaseIterable {
-    case newGames
-    case newApps
-    case topFree
-    case topGrossing
-    case topPaid
-    case topFreeiPad
-    case topGrossingiPad
-    
-    var urlString: String {
-        switch self {
-        case .newGames:
-            return "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/10/explicit.json"
-        case .newApps:
-            return "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-apps-we-love/all/10/explicit.json"
-        case .topFree:
-            return "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/10/explicit.json"
-        case .topGrossing:
-            return "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing/all/10/explicit.json"
-        case .topPaid:
-            return "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-paid/all/10/explicit.json"
-        case .topFreeiPad:
-            return "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free-ipad/all/10/explicit.json"
-        case .topGrossingiPad:
-            return "https://rss.itunes.apple.com/api/v1/us/ios-apps/top-grossing-ipad/all/10/explicit.json"
-        }
-    }
-}
-
 class AppsCollectionViewController: BaseCollectionViewController {
     private let headerCellIdentifier = "headerCell"
     
-    private var appGroups = [AppGroup?]()
+    private var appGroups = [AppGroup]()
+    private var socialApps = [SocialApp]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,9 +31,10 @@ class AppsCollectionViewController: BaseCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath) as? AppsGroupCollectionViewCell, let appGroup = appGroups[indexPath.item] else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath) as? AppsGroupCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let appGroup = appGroups[indexPath.item]
         cell.titleLabel.text = appGroup.feed.title
         cell.horizontalController.appGroup = appGroup
         return cell
@@ -75,7 +48,7 @@ class AppsCollectionViewController: BaseCollectionViewController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: collectionView.bounds.width, height: 0)
+        return .init(width: collectionView.bounds.width, height: 300)
     }
 }
 
@@ -107,9 +80,24 @@ extension AppsCollectionViewController {
                 }
             }
         }
+        
+        dispatchGroup.enter()
+        Service.shared.fetch(urlString: AppHeader.socialHeader.urlString) { [weak self] (result: Result<[SocialApp], Error>) in
+            dispatchGroup.leave()
+            switch result {
+            case let .success(socialApps):
+                self?.socialApps = socialApps
+            case .failure:
+                break
+            }
+        }
+        
         dispatchGroup.notify(queue: .main) { [weak self] in
             let sortedAppGroupDictionary = appGroupDictionary.sorted { $0.0 < $1.0 }
             self?.appGroups = sortedAppGroupDictionary.compactMap({ $0.value })
+            let headerCell = self?.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? AppsHeaderCollectionViewCell
+            headerCell?.appHeaderCollectionViewController.socialApps = self?.socialApps ?? [SocialApp]()
+            headerCell?.appHeaderCollectionViewController.collectionView.reloadData()
             self?.collectionView.reloadData()
         }
     }

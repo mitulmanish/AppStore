@@ -11,6 +11,8 @@ class AppHorizontalHeaderCollectionViewController: BaseCollectionViewController 
     private let identifier = "AppHorizontalHeaderCollectionViewCell"
     private let headerCellLeftSpacing: CGFloat = 16
     
+    var socialApps = [SocialApp]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -20,12 +22,18 @@ class AppHorizontalHeaderCollectionViewController: BaseCollectionViewController 
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? AppHorizontalHeaderCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        let socialItem = try? socialApps.getElementAt(index: indexPath.item)
+        cell.titleLabel.text = socialItem?.tagline
+        cell.companyLabel.text = socialItem?.name
+        cell.appImageView.sd_setImage(with: URL(string: socialItem?.imageUrl ?? ""))
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return socialApps.count
     }
 }
 
