@@ -70,7 +70,8 @@ extension AppsCollectionViewController {
         let dispatchGroup = DispatchGroup()
         for (index, section) in AppGroupSection.allCases.enumerated() {
             dispatchGroup.enter()
-            Service.shared.fetch(urlString: section.urlString) { (result: Result<AppGroup, Error>) in
+            Service.shared.fetch(urlString: section.urlString) {
+                (result: Result<AppGroup, Error>) in
                 dispatchGroup.leave()
                 switch result {
                 case let .success(appGroup):
@@ -82,7 +83,8 @@ extension AppsCollectionViewController {
         }
         
         dispatchGroup.enter()
-        Service.shared.fetch(urlString: AppHeader.socialHeader.urlString) { [weak self] (result: Result<[SocialApp], Error>) in
+        Service.shared.fetch(urlString: AppHeader.socialHeader.urlString) {
+            [weak self] (result: Result<[SocialApp], Error>) in
             dispatchGroup.leave()
             switch result {
             case let .success(socialApps):

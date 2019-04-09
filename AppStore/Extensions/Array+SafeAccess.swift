@@ -11,10 +11,10 @@ extension Array {
         case outOfBounds
     }
     
-    func getElementAt(index: Int) throws -> Element {
+    func getElementAt(index: Int) -> Result<Element, Error> {
         guard (startIndex..<endIndex).contains(index) else {
-            throw AccessError.outOfBounds
+            return .failure(AccessError.outOfBounds)
         }
-        return self[index]
+        return .success(self[index])
     }
 }

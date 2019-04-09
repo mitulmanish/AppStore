@@ -25,7 +25,7 @@ class AppHorizontalHeaderCollectionViewController: BaseCollectionViewController 
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? AppHorizontalHeaderCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let socialItem = try? socialApps.getElementAt(index: indexPath.item)
+        let socialItem = try? socialApps.getElementAt(index: indexPath.item).get()
         cell.titleLabel.text = socialItem?.tagline
         cell.companyLabel.text = socialItem?.name
         cell.appImageView.sd_setImage(with: URL(string: socialItem?.imageUrl ?? ""))

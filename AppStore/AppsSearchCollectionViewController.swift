@@ -48,13 +48,13 @@ class AppsSearchCollectionViewController: BaseCollectionViewController {
         timer?.invalidate()
         timer = Timer(timeInterval: 0.3, repeats: false) { _ in
             Service.shared.fetchApps(searchTerm: searchTerm, completion: {
-                [weak self] appsList, error in
-                guard let apps = appsList, apps.isEmpty == false else {
+                [weak self] (result: Result<SearchResult, Error>) in
+                guard let searchResults = try? result.get().results else {
                     return
                 }
-                self?.searchResultItemList = apps
+                self?.searchResultItemList = searchResults
                 OperationQueue.main.addOperation {
-                    self?.emptySearchLabel.isHidden = (apps.isEmpty == false)
+                    self?.emptySearchLabel.isHidden = (searchResults.isEmpty == false)
                     self?.collectionView.reloadData()
                 }
             })
@@ -72,7 +72,7 @@ class AppsSearchCollectionViewController: BaseCollectionViewController {
         cell.ratingsLabel.text = "Rating: \(resultItem.averageUserRating ?? 0)"
         cell.appIconImageView.sd_setImage(with: resultItem.artworkURL)
         for (index, url) in resultItem.screenShotURLList.enumerated() {
-            try? cell.screenShotImageViews.getElementAt(index: index).sd_setImage(with: url)
+            try? cell.screenShotImageViews.getElementAt(index: index).get().sd_setImage(with: url)
         }
     }
 }

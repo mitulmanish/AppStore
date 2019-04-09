@@ -34,12 +34,13 @@ class AppsHorizontalCollectionViewController: BaseCollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsHorizontalCollectionViewCell.appsHorizontalCollectionViewCellIdentifier, for: indexPath) as? AppsHorizontalCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let appItem = try? appGroup?.feed.results.getElementAt(index: indexPath.item) else {
+        
+        guard let appItem = appGroup?.feed.results.getElementAt(index: indexPath.item).value else {
             return cell
         }
-        cell.appNameLabel.text = appItem?.name
-        cell.companyNameLabel.text = appItem?.artistName
-        cell.appIconImageView.sd_setImage(with: URL(string: appItem?.artworkUrl100 ?? ""))
+        cell.appNameLabel.text = appItem.name
+        cell.companyNameLabel.text = appItem.artistName
+        cell.appIconImageView.sd_setImage(with: URL(string: appItem.artworkUrl100))
         return cell
     }
 }
