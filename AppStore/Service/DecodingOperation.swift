@@ -9,8 +9,8 @@
 import Foundation
 
 protocol DecodableOperationType: class {
-    associatedtype DataType: Decodable
-    associatedtype Provider: DecodingDataProvider
+    associatedtype DataType
+    associatedtype Provider
 }
 
 class DecodingOperation<Element, DataProvider>: BasicOperation, DecodableOperationType
