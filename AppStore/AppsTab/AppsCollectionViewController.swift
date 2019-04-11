@@ -30,13 +30,26 @@ class AppsCollectionViewController: BaseCollectionViewController {
         return appGroups.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath) as? AppsGroupCollectionViewCell else {
-            return UICollectionViewCell()
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? AppsGroupCollectionViewCell else {
+            return
         }
         let appGroup = appGroups[indexPath.item]
         cell.titleLabel.text = appGroup.feed.title
         cell.horizontalController.appGroup = appGroup
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppsGroupCollectionViewCell.reuseIdentifier, for: indexPath) as? AppsGroupCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.horizontalController.didSelectApp = { [weak self] item in
+            let vc = UIViewController()
+            vc.view.backgroundColor = .blue
+            vc.title = item.name
+            vc.navigationItem.largeTitleDisplayMode = .never
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
         return cell
     }
     

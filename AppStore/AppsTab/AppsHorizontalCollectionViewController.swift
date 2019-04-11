@@ -12,6 +12,8 @@ class AppsHorizontalCollectionViewController: BaseCollectionViewController {
     private let interItemSpacing: CGFloat = 10
     private let topBottomSectionMargin: CGFloat = 8
     
+    var didSelectApp: ((FeedResult) -> ())?
+    
     var appGroup: AppGroup? {
         didSet {
             collectionView.reloadData()
@@ -42,6 +44,13 @@ class AppsHorizontalCollectionViewController: BaseCollectionViewController {
         cell.companyNameLabel.text = appItem.artistName
         cell.appIconImageView.sd_setImage(with: URL(string: appItem.artworkUrl100))
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let appItem = appGroup?.feed.results.getElementAt(index: indexPath.item).value else {
+            return
+        }
+        didSelectApp?(appItem)
     }
 }
 
