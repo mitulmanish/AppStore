@@ -44,8 +44,7 @@ class AppsCollectionViewController: BaseCollectionViewController {
             return UICollectionViewCell()
         }
         cell.horizontalController.didSelectApp = { [weak self] item in
-            let vc = UIViewController()
-            vc.view.backgroundColor = .blue
+            let vc = AppDetailViewController()
             vc.title = item.name
             vc.navigationItem.largeTitleDisplayMode = .never
             self?.navigationController?.pushViewController(vc, animated: true)
