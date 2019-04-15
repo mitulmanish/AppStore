@@ -45,8 +45,8 @@ class AppsCollectionViewController: BaseCollectionViewController {
         }
         cell.horizontalController.didSelectApp = { [weak self] item in
             let vc = AppDetailViewController()
+            print(">>> \(item.id)")
             vc.title = item.name
-            vc.navigationItem.largeTitleDisplayMode = .never
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         return cell
