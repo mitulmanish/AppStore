@@ -44,7 +44,7 @@ class AppsCollectionViewController: BaseCollectionViewController {
             return UICollectionViewCell()
         }
         cell.horizontalController.didSelectApp = { [weak self] item in
-            let vc = AppDetailViewController()
+            let vc = AppDetailViewController(appID: item.id)
             print(">>> \(item.id)")
             vc.title = item.name
             self?.navigationController?.pushViewController(vc, animated: true)

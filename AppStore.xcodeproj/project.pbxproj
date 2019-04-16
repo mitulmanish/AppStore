@@ -42,6 +42,7 @@
 		DDC7A5FD2257CABE0069FCF3 /* URLSession+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC7A5FC2257CABE0069FCF3 /* URLSession+Result.swift */; };
 		DDFB50F4225D08F500E8273C /* Result+Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFB50F3225D08F500E8273C /* Result+Value.swift */; };
 		DDFB50F7225F3F4D00E8273C /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFB50F6225F3F4D00E8273C /* AppDetailViewController.swift */; };
+		DDFB511C2264F79400E8273C /* AppDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFB511B2264F79400E8273C /* AppDetailCell.swift */; };
 		F2907E770738C9EC7A441281 /* Pods_AppStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E12DC430A8D5A852F03EA1A0 /* Pods_AppStore.framework */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +110,7 @@
 		DDC7A5FC2257CABE0069FCF3 /* URLSession+Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Result.swift"; sourceTree = "<group>"; };
 		DDFB50F3225D08F500E8273C /* Result+Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Value.swift"; sourceTree = "<group>"; };
 		DDFB50F6225F3F4D00E8273C /* AppDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
+		DDFB511B2264F79400E8273C /* AppDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailCell.swift; sourceTree = "<group>"; };
 		E12DC430A8D5A852F03EA1A0 /* Pods_AppStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9B370524CF79D17088583E2 /* Pods-AppStoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppStoreTests.release.xcconfig"; path = "Target Support Files/Pods-AppStoreTests/Pods-AppStoreTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -287,6 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				DDFB50F6225F3F4D00E8273C /* AppDetailViewController.swift */,
+				DDFB511B2264F79400E8273C /* AppDetailCell.swift */,
 			);
 			path = AppDetail;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				DD3743EC22420B0F00D88B5C /* AppsSearchCollectionViewController.swift in Sources */,
 				DDB611BB224BD86C00D962AA /* UIView+Anchors.swift in Sources */,
 				DD6656E7225218DC00073DC3 /* AppsGroupCollectionViewCell.swift in Sources */,
+				DDFB511C2264F79400E8273C /* AppDetailCell.swift in Sources */,
 				DD6656F42253AB5D00073DC3 /* AppHorizontalHeaderCollectionViewCell.swift in Sources */,
 				DDFB50F7225F3F4D00E8273C /* AppDetailViewController.swift in Sources */,
 				DD5F4A18225913A0002C2D7B /* BasicOperation.swift in Sources */,

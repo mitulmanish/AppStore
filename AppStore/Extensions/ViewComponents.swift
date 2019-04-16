@@ -33,3 +33,10 @@ extension UIButton {
         setTitle(text, for: .normal)
     }
 }
+
+extension UIStackView {
+    convenience init(arrangedSubviews: [UIView], spacing: CGFloat) {
+        self.init(arrangedSubviews: arrangedSubviews)
+        self.spacing = spacing
+    }
+}
