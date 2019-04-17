@@ -19,6 +19,7 @@ struct SearchResultItem: Decodable {
     let trackName: String
     let averageUserRating: Float?
     let screenshotUrls: [String]
+    let ipadScreenshotUrls: [String]
     let artworkUrl100: String
     let description: String
     let releaseNotes: String?
@@ -30,5 +31,9 @@ struct SearchResultItem: Decodable {
     
     var screenShotURLList: [URL] {
         return screenshotUrls.compactMap { URL(string: $0) }
+    }
+    
+    var iPadscreenShotURLList: [URL] {
+        return ipadScreenshotUrls.compactMap { URL(string: $0) }
     }
 }
