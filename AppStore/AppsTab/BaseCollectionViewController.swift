@@ -9,8 +9,8 @@
 import UIKit
 
 class BaseCollectionViewController: UICollectionViewController {
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    init(collectionViewLayout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()) {
+        super.init(collectionViewLayout: collectionViewLayout)
     }
     
     required init?(coder aDecoder: NSCoder) {

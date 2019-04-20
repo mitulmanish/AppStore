@@ -12,6 +12,7 @@ class AppDetailViewController: BaseCollectionViewController {
     
     private let appDetailCell = "appDetailCell"
     private let screenShotCell = "screenShotCell"
+    private let reviewRowCell = "reviewRowCellID"
     
     private let appID: String
     private var searchResultItem: SearchResultItem?
@@ -46,6 +47,7 @@ class AppDetailViewController: BaseCollectionViewController {
         collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: appDetailCell)
         fetchAppDetailsData()
         collectionView.register(ScreenShotCollectionViewCell.self, forCellWithReuseIdentifier: screenShotCell)
+        collectionView.register(ReviewRowCell.self, forCellWithReuseIdentifier: reviewRowCell)
         collectionView.backgroundColor = .white
     }
     
@@ -69,7 +71,7 @@ class AppDetailViewController: BaseCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -84,9 +86,18 @@ class AppDetailViewController: BaseCollectionViewController {
                 return UICollectionViewCell()
             }
             return cell
+        case 2:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewRowCell, for: indexPath) as? ReviewRowCell else {
+                return UICollectionViewCell()
+            }
+            return cell
         default:
             return UICollectionViewCell()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 0, left: 0, bottom: 16, right: 0)
     }
 }
 
@@ -114,6 +125,8 @@ extension AppDetailViewController: UICollectionViewDelegateFlowLayout {
             return .init(width: collectionView.bounds.width, height: probableSize.height)
         case 1:
             return .init(width: collectionView.bounds.width, height: 328)
+        case 2:
+            return .init(width: collectionView.bounds.width, height: 280)
         default:
             return .zero
         }

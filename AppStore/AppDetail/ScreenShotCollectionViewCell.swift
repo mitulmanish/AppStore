@@ -30,7 +30,7 @@ class ScreenShotCollectionViewCell: UICollectionViewCell {
             screenShotCollectionViewController.view
             ], spacing: 4)
         addSubview(verticalStackView)
-        verticalStackView.fillSuperView(with: .init(top: 0, left: 16, bottom: 0, right: 0))
+        verticalStackView.fillSuperView(with: .init(top: 0, left: 16, bottom: 0, right: 16))
     }
     
     required init?(coder aDecoder: NSCoder) {
