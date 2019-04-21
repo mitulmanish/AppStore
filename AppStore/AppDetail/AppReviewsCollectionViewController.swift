@@ -8,6 +8,46 @@
 
 import UIKit
 
+struct AppeReview: Decodable {
+    let feed: AppReviewFeed
+}
+
+struct AppReviewFeed: Decodable {
+    let entry: [AppEntryItem]
+}
+
+struct AppEntryItem: Decodable {
+    let author: Author
+    let content: AppReviewContent
+    let title: AppReviewTitle
+    let rating: AppRating
+    
+    private enum CodingKeys: String, CodingKey {
+        case author, content, title
+        case rating = "im:rating"
+    }
+}
+
+struct AppRating: Decodable {
+    let label: String
+}
+
+struct AppReviewTitle: Decodable {
+    let label: String
+}
+
+struct AppReviewContent: Decodable {
+    let label: String
+}
+
+struct Author: Decodable {
+    let name: AuthorName
+}
+
+struct AuthorName: Decodable {
+    let label: String
+}
+
 class AppReviewsCollectionViewController: UICollectionViewController {
     
     private let appReviewCellID = "appReviewCellID"
@@ -30,6 +70,15 @@ class AppReviewsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppReviewCollectionViewCell.self, forCellWithReuseIdentifier: appReviewCellID)
+        
+        Service.shared.fetch(urlString: "https://itunes.apple.com/rss/customerreviews/page=1/id=1201642309/sortby=mostrecent/json?l=en&cc=us") { (result: Result<AppeReview, Error>) in
+            switch result {
+            case .success(let review):
+                print(review.feed.entry.count)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -11,8 +11,8 @@ import UIKit
 class AppReviewCollectionViewCell: UICollectionViewCell {
     
     let reviewTitleLabel: UILabel = UILabel(text: "Review Title", font: .boldSystemFont(ofSize: 18), numberOfLines: 1)
-    let authorLabel: UILabel = UILabel(text: "Author", font: .systemFont(ofSize: 16), numberOfLines: 1)
-    let starsLabel: UILabel = UILabel(text: "⭐️", font: .systemFont(ofSize: 16), numberOfLines: 1)
+    let authorLabel: UILabel = UILabel(text: "Author", font: .systemFont(ofSize: 16))
+    let starsLabel: UILabel = UILabel(text: "⭐️", font: .systemFont(ofSize: 16))
     let bodylabel: UILabel = UILabel(text: #"""
         review
         review
