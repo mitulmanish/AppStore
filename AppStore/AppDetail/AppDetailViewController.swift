@@ -65,6 +65,11 @@ class AppDetailViewController: BaseCollectionViewController {
                     return
             }
             cell.screenShotCollectionViewController.screenShotImageURLs = appDetailSearchresultItem.screenShotURLList
+        case 2:
+            guard let cell = cell as? ReviewRowCell else {
+                    return
+            }
+            cell.appReviewsCollectionViewController.appID = appID
         default:
             return
         }

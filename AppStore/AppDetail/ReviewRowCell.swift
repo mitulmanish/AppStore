@@ -14,7 +14,7 @@ class ReviewRowCell: UICollectionViewCell {
         return label
     }()
     
-    private let appReviewsCollectionViewController = AppReviewsCollectionViewController()
+    let appReviewsCollectionViewController = AppReviewsCollectionViewController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

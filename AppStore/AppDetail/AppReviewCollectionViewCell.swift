@@ -10,14 +10,41 @@ import UIKit
 
 class AppReviewCollectionViewCell: UICollectionViewCell {
     
-    let reviewTitleLabel: UILabel = UILabel(text: "Review Title", font: .boldSystemFont(ofSize: 18), numberOfLines: 1)
-    let authorLabel: UILabel = UILabel(text: "Author", font: .systemFont(ofSize: 16))
+    var appEntryItem: AppEntryItem? {
+        didSet {
+            reviewTitleLabel.text = appEntryItem?.title.label
+            authorLabel.text = appEntryItem?.author.name.label
+            bodylabel.text = appEntryItem?.content.label
+            starsLabel.text = appEntryItem?.rating.label
+            if let ratingIntEquivalent = Int(appEntryItem?.rating.label ?? "") {
+                starsLabel.text = ["⭐️", "⭐️", "⭐️", "⭐️", "⭐️"]
+                    .prefix(ratingIntEquivalent)
+                    .reduce("", +)
+            }
+        }
+    }
+    
+    lazy var reviewTitleLabel: UILabel = {
+        let label = UILabel(text: "Review Title", font: .boldSystemFont(ofSize: 18), numberOfLines: 1)
+        label.setContentCompressionResistancePriority(.init(0), for: .horizontal)
+        return label
+    }()
+    
+    lazy var authorLabel: UILabel = {
+        let label = UILabel(text: "Author", font: .systemFont(ofSize: 16))
+        label.textAlignment = .right
+        return label
+    }()
+    
     let starsLabel: UILabel = UILabel(text: "⭐️", font: .systemFont(ofSize: 16))
     let bodylabel: UILabel = UILabel(text: #"""
         review
         review
         review
-        """#, font: .systemFont(ofSize: 16), numberOfLines: 0)
+        """#,
+        font: .systemFont(ofSize: 16),
+        numberOfLines: 5
+    )
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,12 +52,13 @@ class AppReviewCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 16
         clipsToBounds = true
         
+        let horizontalStackView = UIStackView(arrangedSubviews: [
+            reviewTitleLabel,
+            authorLabel]
+        )
+        horizontalStackView.spacing = 4
         let verticalStackView = VerticalStackView(subViews: [
-            UIStackView(arrangedSubviews: [
-                reviewTitleLabel,
-                UIView(),
-                authorLabel]
-            ),
+            horizontalStackView,
             starsLabel,
             bodylabel], spacing: 8)
         addSubview(verticalStackView)

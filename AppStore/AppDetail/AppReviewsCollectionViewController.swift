@@ -58,6 +58,30 @@ class AppReviewsCollectionViewController: UICollectionViewController {
         return layout
     }
     
+    var appReview: AppeReview? {
+        didSet {
+            OperationQueue.main.addOperation {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    var appID: String? {
+        didSet {
+            guard let id = appID else {
+                return
+            }
+            Service.shared.fetch(urlString: "https://itunes.apple.com/rss/customerreviews/page=1/id=\(id)/sortby=mostrecent/json?l=en&cc=us") { [weak self] (result: Result<AppeReview, Error>) in
+                switch result {
+                case .success(let review):
+                    self?.appReview = review
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     init(layout: UICollectionViewFlowLayout = AppReviewsCollectionViewController.horizontalLayout()) {
         super.init(collectionViewLayout: layout)
         collectionView.backgroundColor = .white
@@ -70,24 +94,22 @@ class AppReviewsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.register(AppReviewCollectionViewCell.self, forCellWithReuseIdentifier: appReviewCellID)
-        
-        Service.shared.fetch(urlString: "https://itunes.apple.com/rss/customerreviews/page=1/id=1201642309/sortby=mostrecent/json?l=en&cc=us") { (result: Result<AppeReview, Error>) in
-            switch result {
-            case .success(let review):
-                print(review.feed.entry.count)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return appReview?.feed.entry.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appReviewCellID, for: indexPath)
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? AppReviewCollectionViewCell, let review = appReview?.feed.entry.getElementAt(index: indexPath.item).value else {
+            return
+        }
+        cell.appEntryItem = review
     }
 }
 
