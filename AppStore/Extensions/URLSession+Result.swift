@@ -8,30 +8,48 @@
 
 import Foundation
 
-public typealias URLSessionNetworkResult = Result<Data, Error>
-
 enum NetworkError: Error {
-    case serverError(errorCode: Int)
-    case invalidResponseType
+    case invalidURL
+    case noResponse
+    case invalidCredentials
+    case clientError
+    case serverError
     case unknown
+    
+    static func from(httpCode: Int) -> NetworkError? {
+        switch httpCode {
+        case 200...299, 300...399:
+            return .none
+        case 400, 401:
+            return .invalidCredentials
+        case 402...499:
+            return .clientError
+        case 500...599:
+            return .serverError
+        default:
+            return .unknown
+        }
+    }
 }
 
+public typealias URLSessionNetworkResult = Result<Data, Error>
+
 extension URLSession {
-    fileprivate func getResult(data: Data?, response: URLResponse?, error: Error?) -> URLSessionNetworkResult {
-        let validStatusCodeRange: ClosedRange<Int> = 200...299
+    private func getResult(data: Data?, response: URLResponse?, error: Error?) -> URLSessionNetworkResult {
         switch (data, response, error) {
         case let (_, _, error?):
             return .failure(error)
-        case let(data?, response as HTTPURLResponse, _) where validStatusCodeRange.contains(response.statusCode):
+        case let (data?, response as HTTPURLResponse, _)
+            where NetworkError.from(httpCode: response.statusCode) == .none:
             return .success(data)
         case let (_, response as HTTPURLResponse, .none):
-            return .failure(NetworkError.serverError(errorCode: response.statusCode))
+            return .failure(NetworkError.from(httpCode: response.statusCode) ?? NetworkError.unknown)
         case (_, _, .none):
-            return .failure(NetworkError.invalidResponseType)
+            return .failure(NetworkError.noResponse)
         }
     }
     
-    func getData(request: URLRequest, dataResponse: @escaping (URLSessionNetworkResult) -> ()) {
+    func getData(request: URLRequest, dataResponse: @escaping (URLSessionNetworkResult) -> Void) {
         dataTask(with: request) { [unowned self] data, response, error in
             dataResponse(
                 self.getResult(data: data, response: response, error: error)
@@ -39,7 +57,7 @@ extension URLSession {
         }.resume()
     }
     
-    func getData(url: URL, dataResponse: @escaping (URLSessionNetworkResult) -> ()) {
+    func getData(url: URL, dataResponse: @escaping (URLSessionNetworkResult) -> Void) {
         dataTask(with: url) { [unowned self] data, response, error in
             dataResponse(
                 self.getResult(data: data, response: response, error: error)
